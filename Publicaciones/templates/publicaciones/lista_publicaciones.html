@@ -1,5 +1,7 @@
 <h2>Últimas publicaciones</h2>
-
+<p>
+    <a href="{% url 'crear_publicacion' %}">➕ Crear nueva publicación</a>
+</p>
 {% for pub in publicaciones %}
 <div style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
     <h3>{{ pub.titulo }}</h3>
@@ -14,7 +16,15 @@
     <img src="{{ pub.imagen.url }}" alt="Imagen" width="300">
     {% endif %}
     <p>{{ pub.contenido }}</p>
-    <a href="{% url 'crear_publicacion' %}">Crear nueva publicación</a>
+    
+    {% if user == pub.autor %}
+            <form method="post" action="{% url 'eliminar_publicacion' pub.pk %}" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" onclick="return confirm('¿Estás seguro de que quieres eliminar esta publicación?')">
+                    🗑 Eliminar
+                </button>
+            </form>
+        {% endif %}
 
 </div>
 {% empty %}

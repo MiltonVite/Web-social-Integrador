@@ -19,7 +19,7 @@ def crear_publicacion(request):
     return render(request, 'publicaciones/crear_publicacion.html', {'form': form})
 
 def lista_publicaciones(request):
-    publicaciones = Publicacion.objects.all().order_by('-fecha_publicacion')
+    publicaciones = Publicacion.objects.filter(fecha_eliminacion__isnull=True).order_by('-fecha_publicacion')
     return render(request, 'publicaciones/lista_publicaciones.html', {
         'publicaciones': publicaciones
     })
@@ -31,3 +31,11 @@ def publicaciones_por_usuario(request, username):
         'usuario': usuario,
         'publicaciones': publicaciones
     })
+
+@login_required
+def eliminar_publicacion(request, pk):
+    publicacion = get_object_or_404(Publicacion, pk=pk)
+    if request.user == publicacion.autor:
+        publicacion.eliminar()  # 🧠 usa el método lógico
+    return redirect('lista_publicaciones')
+
