@@ -37,12 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'Usuarios',
     'django.contrib.sites',           # Requerido por allauth
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'Usuarios'
+    'Usuarios',
+    'Publicaciones',
 ]
 
 SITE_ID = 1
@@ -54,6 +54,9 @@ AUTHENTICATION_BACKENDS = [
 
 # Usar tu modelo de usuario personalizado
 AUTH_USER_MODEL = 'Usuarios.UsuarioPersonalizado'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Redirección después del login
 LOGIN_REDIRECT_URL = '/'

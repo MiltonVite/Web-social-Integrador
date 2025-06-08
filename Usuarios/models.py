@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.core.mail import send_mail
+from django.http import HttpResponse
 
 # Create your models here.
 
@@ -44,4 +46,4 @@ class TokensVerificacion(models.Model):
 
     def __str__(self):
         return f"Token de verificación para {self.usuario.username}"
-    
+        
