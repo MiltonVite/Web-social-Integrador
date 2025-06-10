@@ -6,22 +6,23 @@ class PublicacionForm(forms.ModelForm):
         model = Publicacion
         fields = ['titulo', 'contenido', 'imagen']
         widgets = {
-            'titulo': forms.TextInput(attrs={
-                'class': 'form-control',
-                'placeholder': 'Título de la publicación (opcional)',
-                'style': 'width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px;'
-            }),
             'contenido': forms.Textarea(attrs={
                 'class': 'post-input',
-                'rows': 2,
+                'rows': 1,
                 'placeholder': '¿Qué estás pensando?',
-                'style': 'width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;'
+                 'style': 'resize: none; border: none; background-color: #f5f5f5; border-radius: 8px; padding: 10px;'
+            }),
+            'titulo': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Título (opcional)',
+                'style': 'display:none;'  # si no quieres mostrarlo
             }),
             'imagen': forms.ClearableFileInput(attrs={
-                'class': 'form-control',
-                'style': 'margin-top: 10px;'
-            }),
+                 'id': 'id_imagen',
+                'style': 'display: none;'
+            })
         }
+
 
 
 

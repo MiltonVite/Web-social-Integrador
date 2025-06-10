@@ -18,10 +18,10 @@ def crear_publicacion(request):
     
     return render(request, 'publicaciones/crear_publicacion.html', {'form': form})
 
-@login_required
+
 def lista_publicaciones(request):
     if request.method == 'POST':
-        form = PublicacionForm(request.POST, request.FILES)
+        form = PublicacionForm(request.POST or None, request.FILES or None)
         if form.is_valid():
             pub = form.save(commit=False)
             pub.autor = request.user
@@ -39,7 +39,7 @@ def lista_publicaciones(request):
 
 def publicaciones_por_usuario(request, username):
     usuario = get_object_or_404(UsuarioPersonalizado, username=username)
-    publicaciones = Publicacion.objects.filter(autor=usuario).order_by('-fecha_publicacion')
+    publicaciones = Publicacion.objects.filter(fecha_eliminacion__isnull=True).order_by('-fecha_publicacion')
     return render(request, 'publicaciones/publicaciones_usuario.html', {
         'usuario': usuario,
         'publicaciones': publicaciones
